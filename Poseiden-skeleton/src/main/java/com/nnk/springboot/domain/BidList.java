@@ -7,7 +7,10 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "bidlist")
 public class BidList {
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     Integer BidListId;
+
     String account;
     String type;
     Double bidQuantity;
