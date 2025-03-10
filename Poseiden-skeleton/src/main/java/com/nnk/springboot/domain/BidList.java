@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 public class BidList {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    Integer BidListId;
+    Integer id;
 
     String account;
     String type;
@@ -47,12 +47,12 @@ public class BidList {
         this.bidQuantity = bidQuantity;
     }
 
-    public Integer getBidListId() {
-        return BidListId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setBidListId(Integer bidListId) {
-        BidListId = bidListId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getAccount() {

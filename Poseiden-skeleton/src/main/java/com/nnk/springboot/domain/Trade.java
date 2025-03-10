@@ -1,7 +1,6 @@
 package com.nnk.springboot.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 
@@ -9,7 +8,9 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "trade")
 public class Trade {
-    Integer tradeId;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    Integer id;
     String account;
     String type;
     Double buyQuantity;
@@ -35,12 +36,12 @@ public class Trade {
 
     }
 
-    public Integer getTradeId() {
-        return tradeId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setTradeId(Integer tradeId) {
-        this.tradeId = tradeId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getAccount() {
