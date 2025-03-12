@@ -16,4 +16,12 @@ public class ValidatorService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    public boolean checkIsPasswordsMatching(String hashedPassword, String password) {
+        return passwordEncoder.matches(password, hashedPassword);
+    }
+
+    public boolean passwordAreSame(String password, String confirmPassword) {
+        return password.equals(confirmPassword);
+    }
 }
