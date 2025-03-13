@@ -55,13 +55,13 @@ public abstract class EntityService<Entity, DTO, EntityId> {
             this.getRepository().save(entity);
         }
         catch(Exception ex) {
-            throw new EntityUpdateFailException(id.toString(), this.getEntityName());
+            throw new EntityUpdateFailException(this.getEntityID(entity).toString() , this.getEntityName());
         }
     }
 
     public EntityId save(DTO dto) throws EntitySaveFailException {
         Entity entity = this.mapFromDTO(dto);
-        this.saveEntity(entity);
+        return this.saveEntity(entity);
     }
 
     protected EntityId saveEntity(Entity entity) throws EntitySaveFailException {
@@ -74,12 +74,12 @@ public abstract class EntityService<Entity, DTO, EntityId> {
         }
     }
 
-    public boolean delete(EntityId id) throws EntityDeleteFailException {
+    public void delete(EntityId id) throws EntityDeleteFailException {
         try {
             this.getRepository().deleteById(id);
         }
         catch(Exception ex) {
-            throw new EntityDeleteFailException(id, this.getEntityName());
+            throw new EntityDeleteFailException(id.toString(), this.getEntityName());
         }
     }
 }
