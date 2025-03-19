@@ -13,6 +13,9 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http.build();
+
+        /*
         return http.authorizeHttpRequests(auth -> auth.requestMatchers("/register", "/css/**")
                         .permitAll()
                         .requestMatchers("/admin/**")
@@ -30,6 +33,8 @@ public class SecurityConfig {
                 .sessionManagement(sessionManagement -> sessionManagement.maximumSessions(1)
                         .expiredUrl("/login?expired=true"))
                 .build();
+
+         */
     }
 
     @Bean
