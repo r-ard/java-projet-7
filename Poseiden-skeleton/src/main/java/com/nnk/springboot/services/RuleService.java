@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service layer responsible for handling rule-related operations.
+ */
 @Service
 public class RuleService extends EntityService<RuleName, RuleNameDTO, Integer> {
     @Autowired

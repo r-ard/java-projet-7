@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public class RegisterDTO {
     @NotBlank(message = "FullName must not be null")
-    private String fullName;
+    private String fullname;
 
     @NotBlank(message = "Username must not be null")
     private String username;
@@ -16,11 +16,11 @@ public class RegisterDTO {
     private String confirmPassword;
 
     public String getFullName() {
-        return fullName;
+        return fullname;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFullName(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getUsername() {

@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service layer responsible for handling curvepoint-related operations.
+ */
 @Service
 public class CurvePointService extends EntityService<CurvePoint, CurvePointDTO, Integer> {
     @Autowired
