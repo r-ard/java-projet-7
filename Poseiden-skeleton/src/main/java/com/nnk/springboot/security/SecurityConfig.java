@@ -22,7 +22,7 @@ public class SecurityConfig {
                         auth
                         .requestMatchers("/css/**", "/login", "/register", "/")
                                 .permitAll()
-                        .requestMatchers("/admin/**", "/user/**")
+                        .requestMatchers("/admin/**")
                         .hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form -> form.loginPage("/login")

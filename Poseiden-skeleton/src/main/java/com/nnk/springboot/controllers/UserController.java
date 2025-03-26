@@ -30,11 +30,11 @@ public class UserController {
      * @param model The model to store attributes for the view.
      * @return The view name for the user list page.
      */
-    @RequestMapping("/user/list")
+    @RequestMapping("/admin/user/list")
     public String home(Model model)
     {
         model.addAttribute("users", userService.findAll());
-        return "user/list";
+        return "admin/user/list";
     }
 
     /**
@@ -43,11 +43,11 @@ public class UserController {
      * @param model The model to store attributes for the view.
      * @return The view name for the add user page.
      */
-    @GetMapping("/user/add")
+    @GetMapping("/admin/user/add")
     public String addUser(Model model) {
         model.addAttribute("user", new UserDTO());
 
-        return "user/add";
+        return "admin/user/add";
     }
 
     /**
@@ -58,13 +58,13 @@ public class UserController {
      * @param model The model to store attributes for the view.
      * @return Redirects to the user list page if successful, or returns to the add user page if there are errors.
      */
-    @PostMapping("/user/validate")
+    @PostMapping("/admin/user/validate")
     public String validate(@Valid @ModelAttribute("userDTO") UserDTO userDTO, BindingResult result, Model model) {
         model.addAttribute("user", userDTO);
 
         if(result.hasErrors()) {
             logger.warn("Failed to create user, invalid user body");
-            return "user/add";
+            return "admin/user/add";
         }
 
         try {
@@ -72,10 +72,10 @@ public class UserController {
         }
         catch(Exception ex) {
             logger.warn("Failed to create user, reason : {}", ex.getMessage());
-            return "user/add";
+            return "admin/user/add";
         }
 
-        return "redirect:/user/list";
+        return "redirect:/admin/user/list";
     }
 
     /**
@@ -85,7 +85,7 @@ public class UserController {
      * @param model The model to store attributes for the view.
      * @return The view name for the update user page.
      */
-    @GetMapping("/user/update/{id}")
+    @GetMapping("/admin/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         try {
             UserDTO userDTO = userService.findById(id);
@@ -93,9 +93,9 @@ public class UserController {
             model.addAttribute("user", userDTO);
         } catch (Exception ex) {
             logger.warn("Failed to find user with ID: {}", id);
-            return "redirect:/user/list";
+            return "redirect:/admin/user/list";
         }
-        return "user/update";
+        return "admin/user/update";
     }
 
     /**
@@ -107,7 +107,7 @@ public class UserController {
      * @param model The model to store attributes for the view.
      * @return Redirects to the user list page if successful, or returns to the update user page if there are errors.
      */
-    @PostMapping("/user/update/{id}")
+    @PostMapping("/admin/user/update/{id}")
     public String updateUser(@PathVariable("id") Integer id, @Valid @ModelAttribute("userDTO") UserDTO userDTO,
                              BindingResult result, Model model) {
         logger.info("Updating user ID: {}", id);
@@ -115,17 +115,17 @@ public class UserController {
 
         if (result.hasErrors()) {
             logger.warn("Invalid user data");
-            return "user/update";
+            return "admin/user/update";
         }
 
         try {
             userService.updateUser(id, userDTO);
         } catch (Exception ex) {
             logger.error("Failed to update user: {}", ex.getMessage());
-            return "user/update";
+            return "admin/user/update";
         }
 
-        return "redirect:/user/list";
+        return "redirect:/admin/user/list";
     }
 
     /**
@@ -134,7 +134,7 @@ public class UserController {
      * @param id The ID of the user to delete.
      * @return Redirects to the user list page after deletion.
      */
-    @GetMapping("/user/delete/{id}")
+    @GetMapping("/admin/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id) {
         logger.info("Deleting user ID: {}", id);
 
@@ -144,6 +144,6 @@ public class UserController {
             logger.error("Failed to delete user: {}", ex.getMessage());
         }
 
-        return "redirect:/user/list";
+        return "redirect:/admin/user/list";
     }
 }
