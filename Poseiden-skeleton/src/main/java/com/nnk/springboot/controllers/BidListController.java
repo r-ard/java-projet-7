@@ -77,7 +77,7 @@ public class BidListController {
             return "bidList/add";
         }
 
-        return "bidList/add";
+        return "redirect:/bidList/list";
     }
 
     /**

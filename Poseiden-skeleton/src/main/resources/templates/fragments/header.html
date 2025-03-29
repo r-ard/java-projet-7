@@ -5,7 +5,7 @@
         <a href="/rating/list">Ratings</a>&nbsp;|&nbsp;
         <a href="/trade/list">Trade</a>&nbsp;|&nbsp;
         <a href="/ruleName/list">Rule</a>
-        <span th:if="${#authorization.expression('hasRole(''ADMIN'')')}">&nbsp;|&nbsp;<a href="/admin/user/list">User</a></span>
+        <span sec:authorize="hasRole('ADMIN')">&nbsp;|&nbsp;<a href="/admin/user/list">User</a></span>
     </div>
     <div class="col-6 text-right">
         Logged in user: <b th:inline="text"  class="user" th:text="${#authentication.name}"></b>

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TradeService extends EntityService<Trade, TradeDTO, Integer> {
+
     @Autowired
     private TradeRepository tradeRepository;
 

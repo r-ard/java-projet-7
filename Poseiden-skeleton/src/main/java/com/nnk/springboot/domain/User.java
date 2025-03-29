@@ -11,21 +11,25 @@ import java.util.Collections;
 
 @Entity
 @Table(name = "users")
-public class User implements UserDetails {
+public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
     @NotBlank(message = "Username is mandatory")
+    @Column(name="username")
     private String username;
 
     @NotBlank(message = "Password is mandatory")
+    @Column(name="password")
     private String password;
 
     @NotBlank(message = "FullName is mandatory")
+    @Column(name="fullname")
     private String fullname;
 
     @NotBlank(message = "Role is mandatory")
+    @Column(name="role")
     private String role;
 
     public Integer getId() {
@@ -66,30 +70,5 @@ public class User implements UserDetails {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(role));
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
     }
 }

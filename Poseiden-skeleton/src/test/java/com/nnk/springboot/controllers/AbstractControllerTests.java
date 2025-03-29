@@ -1,6 +1,5 @@
-package com.nnk.springboot;
+package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.BidList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,4 +1,4 @@
-package com.nnk.springboot;
+package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.repositories.RatingRepository;
@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-public class RatingTests extends AbstractControllerTests<Rating, Integer> {
+public class RatingControllerTests extends AbstractControllerTests<Rating, Integer> {
 	@Autowired
 	private MockMvc mockMvc;
 

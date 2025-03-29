@@ -15,11 +15,11 @@ public class RegisterDTO {
     @NotBlank(message = "Confirm password must not be null")
     private String confirmPassword;
 
-    public String getFullName() {
+    public String getFullname() {
         return fullname;
     }
 
-    public void setFullName(String fullname) {
+    public void setFullname(String fullname) {
         this.fullname = fullname;
     }
 

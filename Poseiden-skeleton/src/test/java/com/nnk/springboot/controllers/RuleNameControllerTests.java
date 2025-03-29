@@ -1,4 +1,4 @@
-package com.nnk.springboot;
+package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.repositories.RuleNameRepository;
@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class RuleTests extends AbstractControllerTests<RuleName, Integer> {
+public class RuleNameControllerTests extends AbstractControllerTests<RuleName, Integer> {
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -67,7 +67,7 @@ public class RuleTests extends AbstractControllerTests<RuleName, Integer> {
 		mockMvc.perform(get("/ruleName/update/" + id).with(getTestUser()))
 				.andExpect(status().isOk())
 				.andExpect(view().name("ruleName/update"))
-				.andExpect(model().attribute("rating", Matchers.hasProperty("name", Matchers.equalTo(entity.getName()))));
+				.andExpect(model().attribute("ruleName", Matchers.hasProperty("name", Matchers.equalTo(entity.getName()))));
 	}
 
 	@Test
@@ -100,7 +100,7 @@ public class RuleTests extends AbstractControllerTests<RuleName, Integer> {
 						.param("sqlPart", ""))
 				.andExpect(status().isOk())
 				.andExpect(view().name("ruleName/add"))
-				.andExpect(model().attributeHasFieldErrors("rating", "order"));
+				.andExpect(model().attributeHasFieldErrors("ruleName", "order"));
 	}
 
 	@Test
@@ -140,7 +140,7 @@ public class RuleTests extends AbstractControllerTests<RuleName, Integer> {
 						.param("sqlPart", ""))
 				.andExpect(status().isOk())
 				.andExpect(view().name("ruleName/update"))
-				.andExpect(model().attributeHasFieldErrors("rating", "order"));
+				.andExpect(model().attributeHasFieldErrors("ruleName", "order"));
 	}
 
 	@Test

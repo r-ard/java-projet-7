@@ -27,7 +27,7 @@ import java.util.Optional;
  * Service layer responsible for handling user-related operations.
  */
 @Service
-public class UserService extends EntityService<User, UserDTO, Integer> implements UserDetailsService {
+public class UserService extends EntityService<User, UserDTO, Integer> {
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
@@ -123,7 +123,7 @@ public class UserService extends EntityService<User, UserDTO, Integer> implement
         User user = new User();
 
         user.setUsername(registerDTO.getUsername());
-        user.setFullname(registerDTO.getFullName());
+        user.setFullname(registerDTO.getFullname());
         user.setPassword(registerDTO.getPassword());
         user.setRole(DEFAULT_ROLE);
 
@@ -204,23 +204,5 @@ public class UserService extends EntityService<User, UserDTO, Integer> implement
 
         user.setPassword( passwordEncoder.encode( passwordChangeDTO.getNewPassword() ) );
         this.updateEntity(user);
-    }
-
-    /**
-     * Loads a user by their username for authentication.
-     *
-     * @param username The username to load.
-     * @return UserDetails containing user information.
-     * @throws UsernameNotFoundException if the user is not found.
-     */
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        logger.info("Starting authentication process for user '{}'.", username);
-
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> {
-                    logger.warn("Authentication failed: User '{}' not found.", username);
-                    return new UsernameNotFoundException("User not found");
-                });
     }
 }
