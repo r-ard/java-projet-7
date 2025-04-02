@@ -120,7 +120,11 @@ public abstract class EntityService<Entity, DTO, EntityId> {
      */
     public void updateEntity(Entity entity) throws EntityUpdateFailException {
         try {
-            this.getRepository().save(entity);
+            if(!this.getRepository().existsById( this.getEntityID(entity) )) {
+                throw new Exception();
+            }
+
+            Entity updatedEntity = this.getRepository().save(entity);
         }
         catch(Exception ex) {
             throw new EntityUpdateFailException(this.getEntityID(entity).toString() , this.getEntityName());

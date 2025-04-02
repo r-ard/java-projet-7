@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.server.ResponseStatusException;
 
+/**
+ * Controller responsible for handling response errors.
+ */
 @Controller
 public class CustomErrorController implements ErrorController {
     private static final Logger logger = LoggerFactory.getLogger(CustomErrorController.class);
