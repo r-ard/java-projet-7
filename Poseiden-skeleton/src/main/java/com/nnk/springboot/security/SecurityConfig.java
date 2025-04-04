@@ -12,6 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+/**
+ * SecurityConfig for SpringSecurity, defines route handling, password hash method and user mapping.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {

@@ -11,6 +11,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 
+/**
+ * Custom class of UserDetails for application.
+ */
 public class CustomUserDetails implements UserDetails {
     private UserRepository userRepository;
 
