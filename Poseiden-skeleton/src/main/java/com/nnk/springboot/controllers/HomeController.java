@@ -21,16 +21,4 @@ public class HomeController
 	{
 		return "home";
 	}
-
-	/**
-	 * Redirects to the user list page for the admin user.
-	 *
-	 * @param model The model to store attributes for the view (if needed).
-	 * @return Redirects to the user list page.
-	 */
-	@RequestMapping("/admin/home")
-	public String adminHome(Model model)
-	{
-		return "redirect:/user/list";
-	}
 }

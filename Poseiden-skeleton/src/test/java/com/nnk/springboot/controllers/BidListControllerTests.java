@@ -5,7 +5,7 @@ import com.nnk.springboot.repositories.BidListRepository;
 import jakarta.transaction.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -24,8 +24,7 @@ import org.hamcrest.Matchers;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-@Transactional
-public class BidListControllerTests extends AbstractControllerTests<BidList, Integer> {
+class BidListControllerTests extends AbstractControllerTests<BidList, Integer> {
 	@Autowired
 	private MockMvc mockMvc;
 

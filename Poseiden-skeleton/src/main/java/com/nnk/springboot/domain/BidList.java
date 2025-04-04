@@ -13,6 +13,7 @@ public class BidList {
 
     String account;
     String type;
+    @Column(name = "bidQuantity")
     Double bidQuantity;
     Double askQuantity;
     Double bid;

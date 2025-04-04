@@ -1,27 +1,24 @@
-# spring-boot
-## Technical:
+# OCR Projet 7 - Poseidon
 
-1. Spring Boot 3.1.0
-2. Java 17
-3. Thymeleaf
-4. Bootstrap v.4.3.1
+Projet 7 du parcours Développeur Java, Poseidon est une application de gestion financière.
 
+## Stacks utilisés
+- SpringBoot (moteur mvc)
+- SpringSecurity (authentification)
+- Thymeleaf (moteur de rendu)
 
-## Setup with Intellij IDE
-1. Create project from Initializr: File > New > project > Spring Initializr
-2. Add lib repository into pom.xml
-3. Add folders
-    - Source root: src/main/java
-    - View: src/main/resources
-    - Static: src/main/resource/static
-4. Create database with name "demo" as configuration in application.properties
-5. Run sql script to create table doc/data.sql
+## Base de données
+- MySQL
 
-## Implement a Feature
-1. Create mapping domain class and place in package com.nnk.springboot.domain
-2. Create repository class and place in package com.nnk.springboot.repositories
-3. Create controller class and place in package com.nnk.springboot.controllers
+## Logiciels utilisés
+- Java 17
+- Maven
 
-## Security
-1. Create user service to load user from  database and place in package com.nnk.springboot.services
-2. Add configuration class and place in package com.nnk.springboot.config
+## Instruction de démarrage
+- Copier le .env.example en .env
+
+```
+# Dev
+mvn clean install
+mvn spring-boot:run
+```

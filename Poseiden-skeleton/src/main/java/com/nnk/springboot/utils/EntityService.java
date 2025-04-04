@@ -140,6 +140,8 @@ public abstract class EntityService<Entity, DTO, EntityId> {
      */
     public EntityId save(DTO dto) throws EntitySaveFailException {
         Entity entity = this.mapFromDTO(dto);
+        this.setEntityId(entity, null);
+
         return this.saveEntity(entity);
     }
 

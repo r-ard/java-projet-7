@@ -100,60 +100,35 @@ public class UserService extends EntityService<User, UserDTO, Integer> {
     }
 
     /**
-     * Registers a new user.
-     *
-     * @param registerDTO The data to register a new user.
-     * @return True if registration is successful, false otherwise.
-     * @throws PasswordsAreNotEqualsException if passwords do not match.
-     * @throws UsernameAlreadyExistsException if the username already exists.
-     */
-    public boolean registerUser(RegisterDTO registerDTO) throws PasswordsAreNotEqualsException, UsernameAlreadyExistsException {
-        if(!validatorService.passwordAreSame(registerDTO.getPassword(), registerDTO.getConfirmPassword())) {
-            throw new PasswordsAreNotEqualsException();
-        }
-
-        // Check if username already exists
-        try {
-            this.findByUsername(registerDTO.getUsername());
-        }
-        catch(Exception ex) {
-            throw new UsernameAlreadyExistsException(registerDTO.getUsername());
-        }
-
-        User user = new User();
-
-        user.setUsername(registerDTO.getUsername());
-        user.setFullname(registerDTO.getFullname());
-        user.setPassword(registerDTO.getPassword());
-        user.setRole(DEFAULT_ROLE);
-
-        try {
-            this.saveEntity(user);
-            return true;
-        }
-        catch(Exception ex) {
-            return false;
-        }
-    }
-
-    /**
      * Creates a new user.
      *
      * @param userDTO The user data to create a new user.
      * @return True if user is created successfully, false otherwise.
      * @throws UsernameAlreadyExistsException if the username already exists.
+     * @throws InvalidPasswordException if the password is not valid.
      */
-    public boolean createUser(UserDTO userDTO) throws UsernameAlreadyExistsException {
+    public boolean createUser(UserDTO userDTO) throws UsernameAlreadyExistsException, InvalidPasswordException {
         // Check if username already exists
         try {
-            this.findByUsername(userDTO.getUsername());
+            UserDTO dto = this.findByUsername(userDTO.getUsername());
+
+            if(dto != null) {
+                throw new UsernameAlreadyExistsException(userDTO.getUsername());
+            }
+        }
+        catch(UsernameAlreadyExistsException ex) {
+            throw ex;
         }
         catch(Exception ex) {
-            throw new UsernameAlreadyExistsException(userDTO.getUsername());
+            // Username is not taken
+        }
+
+        if(!validatorService.isValidPassword(userDTO.getPassword())) {
+            throw new InvalidPasswordException();
         }
 
         try {
-            this.saveEntity( this.mapFromDTO(userDTO) );
+            this.save(userDTO);
             return true;
         }
         catch(Exception ex) {
@@ -169,40 +144,23 @@ public class UserService extends EntityService<User, UserDTO, Integer> {
      * @throws UserNotFoundException if the user does not exist.
      * @throws EntityUpdateFailException if updating the user fails.
      */
-    public void updateUser(Integer id, UserDTO userDTO) throws UserNotFoundException, EntityUpdateFailException {
+    public void updateUser(Integer id, UserDTO userDTO) throws UserNotFoundException, EntityUpdateFailException, InvalidPasswordException {
         User existingUser = this.userRepository.findById(id).orElseThrow(() -> new UserNotFoundException());
+
+        String dtoPassword = userDTO.getPassword();
+
+        if(!dtoPassword.isBlank() && !validatorService.isValidPassword(dtoPassword)) {
+            throw new InvalidPasswordException();
+        }
 
         existingUser.setUsername(userDTO.getUsername());
         existingUser.setFullname(userDTO.getFullname());
         existingUser.setRole(userDTO.getRole());
-        existingUser.setPassword( passwordEncoder.encode( userDTO.getPassword() ) );
+
+        if(!dtoPassword.isBlank()) {
+            existingUser.setPassword( passwordEncoder.encode( userDTO.getPassword() ) );
+        }
+
         this.updateEntity(existingUser);
-    }
-
-    /**
-     * Updates a user's password.
-     *
-     * @param user The user whose password is being updated.
-     * @param passwordChangeDTO The new password details.
-     * @throws InvalidOldPasswordUpdateException if the old password is incorrect.
-     * @throws NewEqualsOldPasswordUpdateException if the new password matches the old password.
-     * @throws EntityUpdateFailException if updating the password fails.
-     * @throws PasswordsAreNotEqualsException if the new password and confirmation password do not match.
-     */
-    public void updateUserPassword(User user, PasswordChangeDTO passwordChangeDTO) throws InvalidOldPasswordUpdateException, NewEqualsOldPasswordUpdateException, EntityUpdateFailException, PasswordsAreNotEqualsException {
-        if(!passwordEncoder.matches(passwordChangeDTO.getOldPassword(), user.getPassword())) {
-            throw new InvalidOldPasswordUpdateException();
-        }
-
-        if(passwordChangeDTO.getOldPassword().equals(passwordChangeDTO.getNewPassword())) {
-            throw new NewEqualsOldPasswordUpdateException();
-        }
-
-        if(!validatorService.passwordAreSame(passwordChangeDTO.getNewPassword(), passwordChangeDTO.getConfirmNewPassword())) {
-            throw new PasswordsAreNotEqualsException();
-        }
-
-        user.setPassword( passwordEncoder.encode( passwordChangeDTO.getNewPassword() ) );
-        this.updateEntity(user);
     }
 }

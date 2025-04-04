@@ -26,8 +26,7 @@ public class SecurityConfig {
      *
      * <p>Security rules include:</p>
      * <ul>
-     *   <li>Public access to static resources and authentication pages (login, register).</li>
-     *   <li>Restricted access to "/admin/**" routes for users with the "ADMIN" role.</li>
+     *   <li>Public access to static resources, authentication pages and users pages (login, register).</li>
      *   <li>Authentication required for all other requests.</li>
      *   <li>Custom login form with success and failure redirections.</li>
      *   <li>Custom logout behavior with cookie deletion.</li>
@@ -43,10 +42,8 @@ public class SecurityConfig {
 
         return http.authorizeHttpRequests(auth ->
                         auth
-                        .requestMatchers("/css/**", "/login", "/register", "/")
+                        .requestMatchers("/css/**", "/login", "/register", "/", "/user/**")
                                 .permitAll()
-                        .requestMatchers("/admin/**")
-                        .hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form -> form.loginPage("/login")
                         .defaultSuccessUrl("/bidList/list", true)

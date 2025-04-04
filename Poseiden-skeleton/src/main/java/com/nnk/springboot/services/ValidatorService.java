@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.regex.Pattern;
+
 /**
  * Service responsible for validating user-related information, particularly password management.
  */
@@ -20,16 +22,28 @@ public class ValidatorService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    private static final String PASSWORD_PATTERN =
+            "^(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).{8,}$";
+
+    private static final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
+
     /**
-     * Checks if the provided password matches the hashed password.
+     * Checks if a password is valid based on the following rules:
+     * - At least 8 characters long
+     * - Contains at least one uppercase letter
+     * - Contains at least one digit
+     * - Contains at least one special character
      *
-     * @param hashedPassword The hashed password to compare.
-     * @param password The plain password to validate.
-     * @return true if the passwords match, false otherwise.
+     * @param password The password to validate
+     * @return true if the password is valid, false otherwise
      */
-    public boolean checkIsPasswordsMatching(String hashedPassword, String password) {
-        return passwordEncoder.matches(password, hashedPassword);
+    public boolean isValidPassword(String password) {
+        if (password == null) {
+            return false;
+        }
+        return pattern.matcher(password).matches();
     }
+
 
     /**
      * Checks if the two provided passwords are the same.

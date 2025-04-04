@@ -11,6 +11,7 @@ public class UserDTO {
     @NotBlank(message = "Username is mandatory")
     private String username;
 
+
     private String password;
 
     @NotBlank(message = "Role is mandatory")

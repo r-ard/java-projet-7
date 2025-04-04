@@ -4,7 +4,7 @@ import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.repositories.CurvePointRepository;
 import jakarta.transaction.Transactional;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,8 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-@Transactional
-public class CurvePointControllerTests extends AbstractControllerTests<CurvePoint, Integer> {
+class CurvePointControllerTests extends AbstractControllerTests<CurvePoint, Integer> {
 	@Autowired
 	private MockMvc mockMvc;
 

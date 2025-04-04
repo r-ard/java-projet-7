@@ -2,9 +2,8 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.repositories.RuleNameRepository;
-import jakarta.transaction.Transactional;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,8 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-@Transactional
-public class RuleNameControllerTests extends AbstractControllerTests<RuleName, Integer> {
+class RuleNameControllerTests extends AbstractControllerTests<RuleName, Integer> {
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -104,7 +102,7 @@ public class RuleNameControllerTests extends AbstractControllerTests<RuleName, I
 						.param("sqlPart", ""))
 				.andExpect(status().isOk())
 				.andExpect(view().name("ruleName/add"))
-				.andExpect(model().attributeHasFieldErrors("ruleName", "order"));
+				.andExpect(model().attributeHasFieldErrors("ruleName", "sqlPart"));
 	}
 
 	@Test
@@ -144,7 +142,7 @@ public class RuleNameControllerTests extends AbstractControllerTests<RuleName, I
 						.param("sqlPart", ""))
 				.andExpect(status().isOk())
 				.andExpect(view().name("ruleName/update"))
-				.andExpect(model().attributeHasFieldErrors("ruleName", "order"));
+				.andExpect(model().attributeHasFieldErrors("ruleName", "sqlPart"));
 	}
 
 	@Test
