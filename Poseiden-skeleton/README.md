@@ -15,10 +15,21 @@ Projet 7 du parcours Développeur Java, Poseidon est une application de gestion 
 - Maven
 
 ## Instruction de démarrage
-- Copier le .env.example en .env
+- Vérifiez bien de copier le .env.example en .env
 
+### Démarrer le projet
 ```
 # Dev
 mvn clean install
 mvn spring-boot:run
+```
+
+## Tester le projet
+````
+mvn test
+````
+
+## Générer la documentation
+```
+mvn javadoc:javadoc
 ```
